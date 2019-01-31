@@ -79,7 +79,8 @@ A policy can be either deterministic or stochastic.
 A deterministic policy is policy that maps state to actions. You give it a state and the function returns an action to take. Deterministic policies are used in deterministic environments. These are environments where the actions taken determine the outcome. There is no uncertainty. For instance, when you play chess and you move your pawn from A2 to A3, you’re sure that your pawn will move to A3.
 On the other hand, a stochastic policy outputs a probability distribution over actions. It means that instead of being sure of taking action a (for instance left), there is a probability we’ll take a different one (in this case 30% that we take south).   
    
-![Alt Text](https://cdn-images-1.medium.com/max/1000/1*YCABimP7x1wZZZKqz2CoyQ.png)   
+ 
+ <p align="center"><img src="https://cdn-images-1.medium.com/max/1000/1*YCABimP7x1wZZZKqz2CoyQ.png" width="450" height="100%"></p> 
    
 The stochastic policy is used when the environment is uncertain. We call this process a Partially Observable Markov Decision Process (POMDP).   
 Most of the time we’ll use this second type of policy.    
@@ -87,7 +88,8 @@ Most of the time we’ll use this second type of policy.
 **Advantages**: But Deep Q Learning is really great! Why using policy-based reinforcement learning methods?   
 - For one, policy-based methods have better convergence properties. The problem with value-based methods is that they can have a big oscillation while training. This is because the choice of action may change dramatically for an arbitrarily small change in the estimated action values. On the other hand, with policy gradient, we just follow the gradient to find the best parameters. We see a smooth update of our policy at each step.
 - Policy gradients are more effective in high dimensional action spaces
-![Alt Text](https://cdn-images-1.medium.com/max/1000/1*_hAkM4RIxjKjKqAYFR_9CQ.png)
+
+ <p align="center"><img src="https://cdn-images-1.medium.com/max/1000/1*_hAkM4RIxjKjKqAYFR_9CQ.png" width="500" height="100%"></p> 
    
 - A third advantage is that policy gradient can learn a stochastic policy, while value functions can’t.   
 A stochastic policy allows our agent to explore the state space without always taking the same action. This is because it outputs a probability distribution over actions. As a consequence, it handles the exploration/exploitation trade off without hard coding it
@@ -215,11 +217,11 @@ Tests performed on 49 Atari games showed that PER really translates into faster 
 DQN = 100%, DQN+PER = 291%, DDQN = 343%, DDQ+PER = 451%   
 An implementation of DDQN+PER for an Atari game Seaquest is available here: https://github.com/jaromiru/AI-blog/blob/master/Seaquest-DDQN-PER.py
 
-![Eligibility](https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/eligibilityTrace.PNG)   
-   
-![](https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/result%20nstep%20learning.PNG)  
-   
-![](https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/n-step%20TD.PNG)   
+ <p align="center"><img src="https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/n-step%20TD.PNG" width="500" height="100%"></p>
+ 
+ <p align="center"><img src="https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/eligibilityTrace.PNG" width="650" height="100%"></p> 
+ 
+ <p align="center"><img src="https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/result%20nstep%20learning.PNG" width="500" height="100%"></p>   
 
 n-step Sarsa can be seen as a on-policy n-step Q-learning
 
