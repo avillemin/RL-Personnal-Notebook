@@ -206,7 +206,11 @@ Full DQN = Q-Learning with target network and error clipping.
 <p align="center"><img src="https://s0.wp.com/latex.php?latex=Q_1%28s%2C+a%29+%5Cxrightarrow%7B%7D+r+%2B+%5Cgamma+Q_2%28s%27%2C+argmax_a+Q_1%28s%27%2C+a%29%29+&bg=ffffff&fg=242424&s=0&zoom=2"></p>
 <p align="center"><img src="https://s0.wp.com/latex.php?latex=Q_2%28s%2C+a%29+%5Cxrightarrow%7B%7D+r+%2B+%5Cgamma+Q_1%28s%27%2C+argmax_a+Q_2%28s%27%2C+a%29%29+&bg=ffffff&fg=242424&s=0&zoom=2"></p>
    
-It was proven that by decoupling the maximizing action from its value in this way, one can indeed eliminate the maximization bias. The Deep Reinforcement Learning with Double Q-learning paper reports that although Double DQN (DDQN) does not always improve performance, it substantially benefits the stability of learning. This improved stability directly translates to ability to learn much complicated tasks.   
+It was proven that by decoupling the maximizing action from its value in this way, one can indeed eliminate the maximization bias. The method above is used for Q-Learning but with Deep Q-Learning  the method is slightly different. We take the idea of the previous target network which is frozen and periodically updated, but the formula to update the first network is different:
+
+<p align="center"><img src="https://s0.wp.com/latex.php?latex=Q%28s%2C+a%29+%5Cxrightarrow%7B%7D+r+%2B+%5Cgamma+%5Ctilde%7BQ%7D%28s%27%2C+argmax_a+Q%28s%27%2C+a%29%29&bg=ffffff&fg=242424&s=0&zoom=2"></p>
+
+The Deep Reinforcement Learning with Double Q-learning paper reports that although Double DQN (DDQN) does not always improve performance, it substantially benefits the stability of learning. This improved stability directly translates to ability to learn much complicated tasks.   
 When testing DDQN on 49 Atari games, it achieved about twice the average score of DQN with the same hyperparameters. With tuned hyperparameters, DDQN achieved almost four time the average score of DQN.   
 
 **Prioritized Experience Replay**: The main idea is that we prefer transitions that does not fit well to our current estimate of the Q function, because these are the transitions that we can learn most from. This reflects a simple intuition from our real world – if we encounter a situation that really differs from our expectation, we think about it over and over and change our model until it fits.   
