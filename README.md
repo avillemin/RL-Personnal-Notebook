@@ -1,7 +1,5 @@
 # Reinforcement Learning
 
-[Source] https://spinningup.openai.com/en/latest/index.html
-
 1. [Reinforcement Learning Introduction](#RL)   
    a. [The Off-Policy Algorithms](#off)   
    b. [The On-Policy Algorithms](#on)   
@@ -15,13 +13,14 @@
 6. [Vanilla Policy Gradient](#vanilla)
 7. [Deep Q-Learning](#DQN)
 8. [Asynchronous Advantage Actor-Critic](#a3c)
-9. [World Models](#world)
+9. [World Models and Deep Neuro Evolution](#world)
 
 <a name="RL"></a>
 
 <a name="off"></a>
 ## The Off-Policy Algorithms
    
+[Source] https://spinningup.openai.com/en/latest/index.html   
 Algorithms like DDPG and Q-Learning are off-policy, so they are able to reuse old data very efficiently. They gain this benefit by exploiting Bellman’s equations for optimality, which a Q-function can be trained to satisfy using any environment interaction data (as long as there’s enough experience from the high-reward areas in the environment).   
 <a name="on"></a>   
 ## The On-Policy Algorithms   
@@ -216,11 +215,11 @@ Tests performed on 49 Atari games showed that PER really translates into faster 
 DQN = 100%, DQN+PER = 291%, DDQN = 343%, DDQ+PER = 451%   
 An implementation of DDQN+PER for an Atari game Seaquest is available here: https://github.com/jaromiru/AI-blog/blob/master/Seaquest-DDQN-PER.py
 
-![Eligibility](https://github.com/avillemin/Minecraft-AI/blob/master/img/eligibilityTrace.PNG)   
+![Eligibility](https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/eligibilityTrace.PNG)   
    
-![](https://github.com/avillemin/Minecraft-AI/blob/master/img/result%20nstep%20learning.PNG)  
+![](https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/result%20nstep%20learning.PNG)  
    
-![](https://github.com/avillemin/Minecraft-AI/blob/master/img/n-step%20TD.PNG)   
+![](https://github.com/avillemin/RL-Personnal-Notebook/blob/master/img/n-step%20TD.PNG)   
 
 n-step Sarsa can be seen as a on-policy n-step Q-learning
 
@@ -298,7 +297,7 @@ Averaging over all samples in a batch, L_{reg} is then set to:
 
 In the tutorial, they took c_v = 0.5 and C_reg = 0.01
 <a name="world"></a>
-# World Models
+# World Models and Deep Neuro Evolution
 
 My dedicated repository: https://github.com/avillemin/SuperDataScience-Courses/tree/master/Hybrid%20AI
 
