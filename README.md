@@ -214,8 +214,33 @@ The Deep Reinforcement Learning with Double Q-learning paper reports that althou
 When testing DDQN on 49 Atari games, it achieved about twice the average score of DQN with the same hyperparameters. With tuned hyperparameters, DDQN achieved almost four time the average score of DQN.   
 
 **Prioritized Experience Replay**: The main idea is that we prefer transitions that does not fit well to our current estimate of the Q function, because these are the transitions that we can learn most from. This reflects a simple intuition from our real world – if we encounter a situation that really differs from our expectation, we think about it over and over and change our model until it fits.   
-See: https://jaromiru.com/2016/11/07/lets-make-a-dqn-double-learning-and-prioritized-experience-replay/   
-We can define an error of a sample S = (s, a, r, s’) as a distance between the Q(s, a) and its target T(S). We will store this error in the agent’s memory along with every sample and update it with each learning step. We will then tanslate this error to a probability of being chosen for replay. Then, we create a binary tree which will be use to sample efficently our memory.  
+   
+We can define an error of a sample S = (s, a, r, s’) as a distance between the Q(s, a) and its target T(S). We will store this error in the agent’s memory along with every sample and update it with each learning step. We will then translate this error to a probability of being chosen for replay. Then, we create a binary tree which will be use to sample efficently our memory.    
+
+ <p align="center"><img src="https://s0.wp.com/latex.php?latex=error+%3D+%7CQ%28s%2C+a%29+-+T%28S%29%7C&bg=ffffff&fg=242424&s=0&zoom=2"></p>
+ 
+ <p align="center"><img src="https://s0.wp.com/latex.php?latex=T%28S%29+%3D+r+%2B+%5Cgamma+%5Ctilde%7BQ%7D%28s%27%2C+argmax_a+Q%28s%27%2C+a%29%29&bg=ffffff&fg=242424&s=0&zoom=2"></p>
+ 
+Proportional prioritization: Epsilon is a small positive constant that ensures that no transition has zero priority.
+Alpha, 0 <= alpha <= 1, controls the difference between high and low error. It determines how much prioritization is used. With alpha = 0 we would get the uniform case.
+ 
+  <p align="center"><img src="https://s0.wp.com/latex.php?latex=p+%3D+%28error+%2B+%5Cepsilon%29%5E%5Calpha&bg=ffffff&fg=242424&s=0&zoom=2"></p>
+  
+Priority is translated to probability of being chosen for replay. A sample i has a probability of being picked during the experience replay determined by a formula:
+  
+   <p align="center"><img src="https://s0.wp.com/latex.php?latex=P_i+%3D+%5Cfrac%7Bp_i%7D%7B%5Csum_k+p_k%7D&bg=ffffff&fg=242424&s=0&zoom=2"></p>
+   
+Initialization and new transitions: we fill the memory using random agent. But this agent does not use any neural network, so how could we estimate any error? We can use a fact that untrained neural network is likely to return a value around zero for every input. In this case the error formula becomes very simple:
+
+   <p align="center"><img src="https://s0.wp.com/latex.php?latex=error+%3D+%7CQ%28s%2C+a%29+-+T%28S%29%7C+%3D+%7CQ%28s%2C+a%29+-+r+-+%5Cgamma+%5Ctilde%7BQ%7D%28s%27%2C+argmax_a+Q%28s%27%2C+a%29%29%7C+%3D+%7C+r+%7C&bg=ffffff&fg=242424&s=0&zoom=2"></p>
+
+The error in this case is simply the reward experienced in a given sample. Indeed, the transitions where the agent experienced any reward intuitively seem to be very promising.   
+
+We can store our samples in unsorted sum tree – a binary tree data structure where the parent’s value is the sum of its children. The samples themselves are stored in the leaf nodes. Update of a leaf node involves propagating a value difference up the tree, obtaining O(log n). Sampling follows the thought process of the array case, but achieves O(log n).      
+   
+Following picture illustrates sampling from a tree with s = 24:
+
+   <p align="center"><img src="https://jaromiru.files.wordpress.com/2016/11/sumtree.png?w=560&zoom=2"></p>
    
 Tests performed on 49 Atari games showed that PER really translates into faster learning and higher performance3. What’s more, it’s complementary to DDQN.
 DQN = 100%, DQN+PER = 291%, DDQN = 343%, DDQ+PER = 451%   
